@@ -3,12 +3,13 @@ import Header from "./components/Header/Header.jsx";
 import CoreConcept from "./components/CoreConcept/CoreConcept.jsx";
 import TabButton from "./components/TabComponent.jsx";'./assets/TabButton';
 import {useState} from 'react'; //all the components starting from "use" known as react hooks 
+import { EXAMPLES } from "./data.js";
 
 
 
 function App() {
 
-  const [selectedTopic , setSelectedTopic ]= useState("Please Click the button text");//we can call them directly on the top level of a component function
+  const [selectedTopic , setSelectedTopic ]= useState("");//we can call them directly on the top level of a component function
 
   
   //use state return two elements thats why we are using array destructuring to store that value
@@ -52,8 +53,16 @@ function App() {
               <TabButton onSelect={()=>handleClick('props')}>Props</TabButton>
               <TabButton onSelect={()=>handleClick('state')}>State</TabButton>
            </menu>
-
-           {selectedTopic} 
+            {!selectedTopic ? <p>Plese Select Some Topic</p> : null}
+           {selectedTopic ? <div id="tab-content">
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>
+              {EXAMPLES[selectedTopic].code}
+              </code>
+            </pre>
+           </div>:null}
         </section>
         <h2>Time to get started!</h2>
       </main>
