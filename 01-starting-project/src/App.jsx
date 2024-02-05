@@ -11,6 +11,17 @@ function App() {
 
   const [selectedTopic , setSelectedTopic ]= useState("");//we can call them directly on the top level of a component function
 
+  var tabContent = <p>Plese Select Some Topic</p> ;
+  if(selectedTopic){
+    tabContent = <div id="tab-content">
+    <h3>{EXAMPLES[selectedTopic].title}</h3>
+    <p>{EXAMPLES[selectedTopic].description}</p>
+    <pre>
+      <code>
+      {EXAMPLES[selectedTopic].code}
+      </code>
+    </pre>
+   </div>}
   
   //use state return two elements thats why we are using array destructuring to store that value
   //first element manage the actual data
@@ -38,23 +49,24 @@ function App() {
               })} */}
 
           <ul>
-            {CORE_CONCEPTS.map((concept,index) => (
-              <li key={index}>
-                <CoreConcept {...concept} />
-              </li>
+            {CORE_CONCEPTS.map((concept) => (
+              
+                <CoreConcept key={concept.title} {...concept} />
+             
             ))}
           </ul>
         </section>
         <section id = "examples">
            <h2>Examples</h2>
            <menu>
-              <TabButton onSelect = {()=>handleClick('components')}>Components</TabButton>
-              <TabButton onSelect={()=>handleClick('jsx')}>JSX</TabButton>
-              <TabButton onSelect={()=>handleClick('props')}>Props</TabButton>
-              <TabButton onSelect={()=>handleClick('state')}>State</TabButton>
+              <TabButton isSelected = {selectedTopic==="components"} onSelect={()=>handleClick('components')}>Components</TabButton>
+              <TabButton isSelected = {selectedTopic==="jsx"} onSelect={()=>handleClick('jsx')}>JSX</TabButton>
+              <TabButton isSelected = {selectedTopic==="props"} onSelect={()=>handleClick('props')}>Props</TabButton>
+              <TabButton isSelected = {selectedTopic==="state"} onSelect={()=>handleClick('state')}>State</TabButton>
            </menu>
-            {!selectedTopic ? <p>Plese Select Some Topic</p> : null}
-           {selectedTopic ? <div id="tab-content">
+
+           {/* one of the way to use conditional rendering */}
+            {/* {!selectedTopic ? <p>Plese Select Some Topic</p> : <div id="tab-content">
             <h3>{EXAMPLES[selectedTopic].title}</h3>
             <p>{EXAMPLES[selectedTopic].description}</p>
             <pre>
@@ -62,7 +74,20 @@ function App() {
               {EXAMPLES[selectedTopic].code}
               </code>
             </pre>
-           </div>:null}
+           </div>} */}
+
+       
+       {/* //{!selectedTopic && <p>Plese Select Some Topic</p>} */}
+       {/* // {selectedTopic && <div id="tab-content">
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>
+              {EXAMPLES[selectedTopic].code}
+              </code>
+            </pre>
+           </div>}*/}
+           {tabContent}
         </section>
         <h2>Time to get started!</h2>
       </main>
