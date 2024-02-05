@@ -1,5 +1,5 @@
-export default function TabButton({children , onSelect}){//onClick can have any name 
-    return <li><button onClick={onSelect}>{children}</button></li>;
+export default function TabButton({ isSelected ,children , onSelect }){//onClick can have any name 
+    return <li><button className = {isSelected ? "active":""}  onClick={onSelect}>{children}</button></li>;
 }
 
 
@@ -10,3 +10,6 @@ export default function TabButton({children , onSelect}){//onClick can have any 
 // <TabButton>Component</TabButton> will be stored in props.children
 //children name is a keyword so you have to mention it as children always 
 //  we can pass function to the component using props
+
+
+//in jsx we use className instead of class 
